@@ -5,6 +5,7 @@ import { useTheme } from "@mui/material/styles";
 import { Gear } from "phosphor-react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import Chat from "../../components/Chat/Chat";
 import { Left_Sidebar_Buttons } from "../../data/config";
 
 const DashboardLayout = () => {
@@ -103,6 +104,7 @@ const DashboardLayout = () => {
         </Stack>
       </Box>
       <Sidebar />
+      <Chat />
     </Stack>
       <Outlet />
     </>

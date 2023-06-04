@@ -1,12 +1,19 @@
 import React from 'react'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import styled from "styled-components";
+import { Divider } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import { SidebarChatElement } from './SidebarChatElement';
 
 const Wrapper = styled.div`
-display: flex;
-align-items: center;
-height: 1rem;
-padding: 1rem;
+// display: flex;
+// flex-direction: column;
+// height: 160px;
+// // flex: 1; 
+// overflow-y: auto;
+// // padding: 1rem;
+// background: red;
+height: 100%;
 `;
 
 const Search = styled.div`
@@ -29,21 +36,44 @@ svg {
 }
 `;
 
+const ChatWrapper = styled.div`
+flex: 1;
+// background: rgb(1, 86, 189);
+overflow-y: auto;
+max-height: 83vh;
+// border: 1px solid blue;
+`
+
 export const SidebarBody = () => {
+
+  const theme = useTheme();
+  const style = {
+    mt: 2,
+    width: "90%",
+    maxWidth: 360,
+    bgcolor: theme.palette.primary.main,
+  };
+
   return (
     /*Szukaj divider przypięty all chats */
-    <Wrapper>
+    
+      <>
+      <Wrapper>
       <Search>
-      {/* <Input icon={<SearchOutlinedIcon />}>
-          
-        </Input> */}
+        {/* <Input icon={<SearchOutlinedIcon />}>
+      </Input> */}
         <SearchOutlinedIcon />
         <input
-            type='text'
-            placeholder='Wyszukaj czat...'
-          />
+          type='text'
+          placeholder='Wyszukaj czat...' />
       </Search>
-      {/* jakis tekst */}
-    </Wrapper>
+      <Divider sx={style} variant="middle" />
+      
+        <ChatWrapper>{/*LOADER WHILE FETCH FROM DB*/}
+          <SidebarChatElement newChat/>
+          <SidebarChatElement />
+          <SidebarChatElement />
+        </ChatWrapper>
+      </Wrapper></>
   )
 }
