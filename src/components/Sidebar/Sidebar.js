@@ -1,25 +1,30 @@
-import { Box } from '@mui/material';
-import React from 'react'
-import styled from 'styled-components';
-import { SidebarBody } from './SidebarBody';
-import { SidebarHeader } from './SidebarHeader';
+import React from "react";
+import styled from "styled-components";
+import { SidebarBody } from "./SidebarBody";
+import { SidebarHeader } from "./SidebarHeader";
 
 const Wrapper = styled.div`
-  display: inline-block;
-  vertical-align: text-top;
-  margin: 0 auto;
-  background-color: black;
+display: flex;
+flex-direction: column;
+flex: 0.25; 
+max-height: 100vh;
+
+  background-color: rgb(26, 26, 33);
+  // width: 30vh;
+  // overflow: hidden;
   color: white;
 `;
 
 const Sidebar = () => {
   return (
     <>
-    <Wrapper>Sidebar</Wrapper>
-    {/* <SidebarBody />
-    <SidebarHeader /> */}
-    </>
-  )
-}
 
-export default Sidebar
+      <Wrapper>
+        <SidebarHeader />
+        <SidebarBody />
+      </Wrapper>
+    </>
+  );
+};
+
+export default Sidebar;

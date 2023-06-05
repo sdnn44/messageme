@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Gear } from "phosphor-react";
 import { Outlet } from "react-router-dom";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Chat from "../../components/Chat/Chat";
 import { Left_Sidebar_Buttons } from "../../data/config";
 
 const DashboardLayout = () => {
@@ -12,9 +14,11 @@ const DashboardLayout = () => {
 
   return (
     <>
+    <Stack direction="row" sx={{ width: "100%" }}>
+    
       <Box
         sx={{
-          backgroundColor: theme.palette.background.paper,
+          backgroundColor: "rgb(31,38,49)",//theme.palette.background.paper,
           boxShadow: "0px, 0px, 2px rgba(0,0,0,0.25)",
           width: "100px",
           height: "100vh",
@@ -99,6 +103,9 @@ const DashboardLayout = () => {
           </Stack>
         </Stack>
       </Box>
+      <Sidebar />
+      <Chat />
+    </Stack>
       <Outlet />
     </>
   );
