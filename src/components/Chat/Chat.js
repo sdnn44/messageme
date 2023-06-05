@@ -6,6 +6,9 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
 flex: 0.75;
+display:flex;
+flex-direction: column;
+background: rgb(31,38,49);
 `;
 
 const Chat = () => {

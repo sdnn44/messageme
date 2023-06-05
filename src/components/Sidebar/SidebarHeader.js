@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 1.2rem;
+  padding: 1rem;
   justify-content: space-between;
 `;
 const RightHeader = styled.div`

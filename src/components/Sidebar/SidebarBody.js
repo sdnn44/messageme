@@ -14,12 +14,16 @@ const Wrapper = styled.div`
 // // padding: 1rem;
 // background: red;
 height: 100%;
+// justify-content: center;
+// align-items: center;
 `;
 
 const Search = styled.div`
 display: flex;
 align-items: center;
-width: 100%;
+margin: 0 auto;
+// justify-content: right;
+width: 90%;
 background-color: rgb(31,38,49);
 border-radius: 50px; 
 
