@@ -44,7 +44,7 @@ export const ChatMessage = ({receiver}) => {
         </ChatMessageElement>
     </Wrapper>
     ) : (
-    <ChatMessageElement style={{"margin-left": "auto", "background-color": "rgb(1, 86, 189)"}}>
+    <ChatMessageElement style={{"marginLeft": "auto", "backgroundColor": "rgb(1, 86, 189)"}}>
         <span>Me</span>
         <p>Fine :-)</p>
         <span>05.06.2023 23:08</span>
