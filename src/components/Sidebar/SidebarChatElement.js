@@ -54,12 +54,12 @@ const createChat = () => {
 
 };
 
-export const SidebarChatElement = ({newChat}) => {
+export const SidebarChatElement = ({id, name, newChat}) => {
   return !newChat ? (
     <Chats>
         <Avatar /> 
         <ChatInfo>
-          <h2>Room name</h2>
+          {name}
           <p>Last message from other users..</p>
         </ChatInfo>
     </Chats>
