@@ -3,6 +3,8 @@ import { Navigate, useRoutes } from "react-router-dom";
 
 // layouts
 import DashboardLayout from "../layouts/dashboard";
+import { Login } from "../pages/auth/Login/Login";
+import { Register } from "../pages/auth/Register/Register";
 
 // config
 import { DEFAULT_PATH } from "../config";
@@ -21,7 +23,7 @@ export default function Router(){
   return useRoutes([
     {
       path: "/",
-      element: <DashboardLayout />,
+      element: <Register />,
       children: [
         { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
         { path: "app", element: <MainView /> },
