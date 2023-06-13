@@ -23,7 +23,7 @@ export default function Router(){
   return useRoutes([
     {
       path: "/",
-      element: <Register />,
+      element: <DashboardLayout />,
       children: [
         { element: <Navigate to={DEFAULT_PATH} replace />, index: true },
         { path: "app", element: <MainView /> },

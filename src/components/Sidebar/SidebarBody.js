@@ -60,33 +60,7 @@ export const SidebarBody = () => {
   };
 
   // willbedeletedsoon
-  // const [contacts1, setContacts1] = useState([]);
-  // useEffect(() => {
-  //   db.collection("contacts").onSnapshot((snapshot) =>
-  //     setContacts(
-  //       snapshot.docs.map((doc) => ({
-  //         id: doc.id,
-  //         data: doc.data(),
-  //       }))
-  //     )
-  //   );
-  // }, []);
-
   const [contacts, setContacts] = useState([]);
-  // useEffect(() => {
-  //   const fetchContacts = async () => {
-  //     const querySnapshot = await getDocs(collection(db, "contacts"));
-  //     setContacts(
-  //       querySnapshot.forEach((doc) => ({
-  //         // doc.data() is never undefined for query doc snapshots
-  //         // console.log(doc.id, " => ", doc.data());
-  //         id: doc.id,
-  //         data: doc.data(),
-  //       }))
-  //     );
-  //   };
-  //   fetchContacts();
-  // }, []);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'contacts'), (snapshot) =>

@@ -40,55 +40,8 @@ const Input = styled.div`
         margin-right: 1rem;
     }
 
-    // label {
-    //     width: 65px;
-    //     order: 2
-    //     pointer-events: none;
-    //     transition: .5s;
-    //     // margin-left: -9rem;
-    // }
-
-    // input:invalid ~ label {
-    //     color: red;
-    // }
-
-    // input:focus ~ label {
-    //     margin-bottom: 2.2rem;
-    //     color: #03e9f4;
-    //     font-size: 12px;
-    // }
-// position: relative;
-//   input {
-//     width: 100%;
-//     padding: 10px 0;
-//     font-size: 16px;
-//     color: #000;
-//     margin-bottom: 30px;
-//     border: none;
-//     border-bottom: 1px solid #fff;
-//     outline: none;
-//     background: transparent;
-//   }
-//   label {
-//     position: absolute;
-//   top:0;
-//   left: 0;
-//   padding: 10px 0;
-//   font-size: 16px;
-//   color: #000;
-//   pointer-events: none;
-//   transition: .5s;
-//   }
-
-// input:focus ~ label,
-// input:valid ~ label {
-//   top: -20px;
-//   left: 0;
-//   color: #03e9f4;
-//   font-size: 12px;
-// }
 `;
-
+//przenieść w inne miejsce
 export const InputProvider = ({ icon, children }) => {
   return (
     <Wrapper>
