@@ -3,6 +3,8 @@ import { Navigate, useRoutes } from "react-router-dom";
 
 // layouts
 import DashboardLayout from "../layouts/dashboard";
+import { Login } from "../pages/auth/Login/Login";
+import { Register } from "../pages/auth/Register/Register";
 
 // config
 import { DEFAULT_PATH } from "../config";

@@ -1,21 +1,23 @@
-import React from 'react'
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import React, { useEffect, useState } from "react";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import styled from "styled-components";
 import { Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { SidebarChatElement } from './SidebarChatElement';
+import { SidebarChatElement } from "./SidebarChatElement";
+import db from "../../services/firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 
 const Wrapper = styled.div`
-// display: flex;
-// flex-direction: column;
-// height: 160px;
-// // flex: 1; 
-// overflow-y: auto;
-// // padding: 1rem;
-// background: red;
-height: 100%;
-// justify-content: center;
-// align-items: center;
+  // display: flex;
+  // flex-direction: column;
+  // height: 160px;
+  // // flex: 1;
+  // overflow-y: auto;
+  // // padding: 1rem;
+  // background: red;
+  height: 100%;
+  // justify-content: center;
+  // align-items: center;
 `;
 
 const Search = styled.div`
@@ -41,15 +43,14 @@ svg {
 `;
 
 const ChatWrapper = styled.div`
-flex: 1;
-// background: rgb(1, 86, 189);
-overflow-y: auto;
-max-height: 83vh;
-// border: 1px solid blue;
-`
+  flex: 1;
+  // background: rgb(1, 86, 189);
+  overflow-y: auto;
+  max-height: 83vh;
+  // border: 1px solid blue;
+`;
 
 export const SidebarBody = () => {
-
   const theme = useTheme();
   const style = {
     mt: 2,
@@ -58,26 +59,49 @@ export const SidebarBody = () => {
     bgcolor: theme.palette.primary.main,
   };
 
+  // willbedeletedsoon
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'contacts'), (snapshot) =>
+      setContacts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      )
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+
   return (
     /*Szukaj divider przypięty all chats */
-    
-      <>
+    <>
       <Wrapper>
-      <Search>
-        {/* <Input icon={<SearchOutlinedIcon />}>
+        <Search>
+          {/* <Input icon={<SearchOutlinedIcon />}>
       </Input> */}
-        <SearchOutlinedIcon />
-        <input
-          type='text'
-          placeholder='Wyszukaj czat...' />
-      </Search>
-      <Divider sx={style} variant="middle" />
-      
-        <ChatWrapper>{/*LOADER WHILE FETCH FROM DB*/}
-          <SidebarChatElement newChat/>
-          <SidebarChatElement />
-          <SidebarChatElement />
+          <SearchOutlinedIcon />
+          <input type="text" placeholder="Wyszukaj czat..." />
+        </Search>
+        <Divider sx={style} variant="middle" />
+
+        <ChatWrapper>
+          {/*LOADER WHILE FETCH FROM DB*/}
+          <SidebarChatElement newChat />
+          {contacts.map((contact) => (
+            <SidebarChatElement
+              key={contact.id}
+              id={contact.id}
+              name={contact.data.name}
+            />
+          ))}
         </ChatWrapper>
-      </Wrapper></>
-  )
-}
+      </Wrapper>
+    </>
+  );
+};
