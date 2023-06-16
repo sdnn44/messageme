@@ -32,12 +32,12 @@ const HeaderInfoRight = styled.div`
   }
 `;
 
-const ChatHeader = () => {
+const ChatHeader = ({name}) => {
   return (
     <Wrapper>
       <Avatar />
       <HeaderInfo>
-        <h3>Room Name</h3>
+        <h3>{name}</h3>
         <p>last seen..</p>
       </HeaderInfo>
 

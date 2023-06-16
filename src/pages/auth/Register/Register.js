@@ -28,6 +28,7 @@ const Wrapper = styled.div`
 `;
 
 export const Register = () => {
+  console.log("Register?");
   return (
     <Bodylike>
       <Wrapper>

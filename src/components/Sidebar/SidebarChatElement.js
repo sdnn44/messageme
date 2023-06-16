@@ -4,6 +4,7 @@ import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import styled from "styled-components";
 import { collection, addDoc } from "firebase/firestore";
 import db from "../../services/firebase";
+import { Link } from "react-router-dom";
 
 const Chats = styled.div`
   display: flex;
@@ -65,13 +66,15 @@ const createChat = async () => {
 
 export const SidebarChatElement = ({ id, name, newChat }) => {
   return !newChat ? (
-    <Chats>
-      <Avatar />
-      <ChatInfo>
-        {name}
-        <p>Last message from other users..</p>
-      </ChatInfo>
-    </Chats>
+    <Link to={`/contacts/${id}`}>
+      <Chats>
+        <Avatar />
+        <ChatInfo>
+          {name}
+          <p>Last message from other users..</p>
+        </ChatInfo>
+      </Chats>
+    </Link>
   ) : (
     <Chats onClick={createChat}>
       <div className="addButton">

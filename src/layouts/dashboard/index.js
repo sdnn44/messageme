@@ -8,13 +8,13 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Chat from "../../components/Chat/Chat";
 import { Left_Sidebar_Buttons } from "../../data/config";
 
-const DashboardLayout = () => {
+const SideNav = () => {
   const theme = useTheme();
   const [selectedItem, setSelectedItem] = useState(0);
 
   return (
     <>
-    <Stack direction="row" sx={{ width: "100%" }}>
+    <Stack direction="row">
     
       <Box
         sx={{
@@ -103,12 +103,12 @@ const DashboardLayout = () => {
           </Stack>
         </Stack>
       </Box>
-      <Sidebar />
-      <Chat />
+      {/* <Sidebar /> */}
+      {/* <Chat /> */}
     </Stack>
       <Outlet />
     </>
   );
 };
 
-export default DashboardLayout;
+export default SideNav;
