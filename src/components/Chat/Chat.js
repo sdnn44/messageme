@@ -28,20 +28,6 @@ const Chat = () => {
           setContactName(docSnap.data().name);
         }
       });
-
-      // const unsubscribe = onSnapshot(
-      //   doc(db, "contacts", contactId),
-      //   (snapshot) => {
-      //     if (snapshot.exists()) {
-      //       setContactName(snapshot.data().name);
-      //     } else {
-      //       // setContactName("Contact not found");
-      //     }
-      //   }
-      // ); //db.collection("contacts").doc(contactId).onSnapshot((snapshot) => setContactName(snapshot.data().name));
-      // // return () => {
-      // //   unsubscribe(); // Cleanup the listener on component unmount
-      // // };
     }
   }, [contactId]);
   console.log(contactId);
