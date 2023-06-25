@@ -1,45 +1,16 @@
 import React from "react";
 import { Route, Redirect, Navigate, Routes, Outlet } from "react-router-dom";
-import { DashboardLayout } from "../../pages/dashboard/DashboardLayout";
-// import { authProvider } from '../../services/firebase'
+import DashboardLayout from "../../pages/dashboard/DashboardLayout";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
-const ProtectedRouter = ({ isLoggedIn, children, ...rest }) => {
-  //   const getAuth = authProvider;
-  console.log("ProtectedRouter?");
-  const isAuthenticated = true;
-  return ( <h1>p</h1>
-    //<Routes>
-    //  <Route
-    //    {...rest}
-    //    element={<DashboardLayout />
-    //   isAuthenticated ? (
-    //     <DashboardLayout>
-    //       <Component />
-    //     </DashboardLayout>
-    //   ) : (
-    //     <Navigate to="/login" replace />
-    //   )
-    //   }
-    // />
-    //</Routes>
-    // <DashboardLayout><Component/></DashboardLayout>
-
-    // <Routes>
-    //   <Route
-    //     {...rest}
-    //     render={(props) => {
-    //       return (
-    //         <>
-    //           <DashboardLayout>{children}</DashboardLayout>
-    //           <Outlet />
-    //         </>
-    //       );
-    //     }}
-    //   ></Route>
-    // </Routes>
-
-    
-  );
+const ProtectedRouter = ({ children }) => {
+  const { currUser } = useContext(AuthContext);
+  if (currUser) {
+    return children;
+  } else {
+    return <Navigate to="/login" />;
+  }
   // <Routes>
   //   <Route
   //     {...rest}

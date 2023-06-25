@@ -18,7 +18,6 @@ max-height: 100vh;
 const Sidebar = () => {
   return (
     <>
-
       <Wrapper>
         <SidebarHeader />
         <SidebarBody />

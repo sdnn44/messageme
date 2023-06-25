@@ -15,13 +15,9 @@ const Wrapper = styled.div `
   // flex-direction: column;
 `;
 
-export const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
     console.log("DashboardLayout?");
-    return ( <
-        > < SideNav / > < Sidebar / > < />
+    return ( <><SideNav /><Sidebar /></>);
+};
 
-    );
-}; { /* {children} */ } { /* <Outlet /> */ }
-// DashboardLayout.propTypes = {
-//   second: PropTypes.third,
-// };
+export default DashboardLayout;

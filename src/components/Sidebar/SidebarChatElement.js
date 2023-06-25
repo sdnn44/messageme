@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, IconButton } from "@mui/material";
 import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
 import styled from "styled-components";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDoc,
+  getDocs,
+} from "firebase/firestore";
 import db from "../../services/firebase";
 import { Link } from "react-router-dom";
 
@@ -65,6 +72,29 @@ const createChat = async () => {
 };
 
 export const SidebarChatElement = ({ id, name, newChat }) => {
+  const [newContactUsername, setNewContactUsername] = useState("");
+  const [foundUser, setFoundUser] = useState(null);
+
+  const handleNewChat = async () => {
+    const contactName = prompt("Podaj nazwę czatu");
+    if (contactName) {
+      setNewContactUsername(contactName);
+      console.log(`username: ` + newContactUsername);
+    }
+    const q = query(
+      collection(db, "users"),
+      where("displayName", "==", newContactUsername)
+    );
+
+    try {
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setFoundUser(doc.data());
+      });
+      console.log(`dodano` + foundUser);
+    } catch(err) {console.log(err)}
+  };
+
   return !newChat ? (
     <Link to={`/contacts/${id}`}>
       <Chats>
@@ -76,13 +106,14 @@ export const SidebarChatElement = ({ id, name, newChat }) => {
       </Chats>
     </Link>
   ) : (
-    <Chats onClick={createChat}>
-      <div className="addButton">
-        <CustomizedIcons sx={{ color: "#fff" }}>
-          <AddCommentOutlinedIcon />
-        </CustomizedIcons>
-      </div>
-      <h2>Stwórz nowy czat</h2>
-    </Chats>
+    <><Chats onClick={handleNewChat}>
+        <div className="addButton">
+          <CustomizedIcons sx={{ color: "#fff" }}>
+            <AddCommentOutlinedIcon />
+          </CustomizedIcons>
+        </div>
+        <h2>Stwórz nowy czat</h2>
+      </Chats><div>{foundUser && <Chats><Avatar src={foundUser.photoURL} /><ChatInfo>{foundUser.displayName}</ChatInfo></Chats>}</div></>
+
   );
 };

@@ -30,8 +30,6 @@ const Chat = () => {
       });
     }
   }, [contactId]);
-  console.log(contactId);
-  console.log(contactName);
   return (
     <Wrapper>
 

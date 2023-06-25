@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Divider } from "@mui/material";
 import { LoginViaSocials } from "../../../sections/auth/Login/LoginViaSocialsForm";
 import { RegistrationForm } from "../../../sections/auth/Registration/RegistrationForm";
+import { Link } from "react-router-dom";
 
 const Bodylike = styled.div`
   display: flex;
@@ -37,7 +38,7 @@ export const Register = () => {
         <LoginViaSocials />
         <p>
           Masz już konto na MessageME? <br />
-          <span>Zaloguj się teraz</span>
+          <span><Link to="/login"> Zaloguj się teraz </Link></span>
         </p>
       </Wrapper>
     </Bodylike>
