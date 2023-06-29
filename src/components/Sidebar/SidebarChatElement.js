@@ -12,6 +12,9 @@ import {
 } from "firebase/firestore";
 import db from "../../services/firebase";
 import { Link } from "react-router-dom";
+import { AddNewChat } from "../FormElements/AddNewChatForm";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "../../services/redux/modal/modalSlice";
 
 const Chats = styled.div`
   display: flex;
@@ -72,6 +75,8 @@ const createChat = async () => {
 };
 
 export const SidebarChatElement = ({ id, name, newChat }) => {
+  const { isOpen } = useSelector((state) => state.modal);
+  const dispatch = useDispatch();
   const [newContactUsername, setNewContactUsername] = useState("");
   const [foundUser, setFoundUser] = useState(null);
 
@@ -92,7 +97,9 @@ export const SidebarChatElement = ({ id, name, newChat }) => {
         setFoundUser(doc.data());
       });
       console.log(`dodano` + foundUser);
-    } catch(err) {console.log(err)}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return !newChat ? (
@@ -106,14 +113,30 @@ export const SidebarChatElement = ({ id, name, newChat }) => {
       </Chats>
     </Link>
   ) : (
-    <><Chats onClick={handleNewChat}>
+    <>
+      <Chats
+        onClick={() => {
+          console.log(isOpen);
+          dispatch(openModal());
+          console.log(isOpen);
+        }}
+      >
         <div className="addButton">
           <CustomizedIcons sx={{ color: "#fff" }}>
             <AddCommentOutlinedIcon />
           </CustomizedIcons>
         </div>
         <h2>Stwórz nowy czat</h2>
-      </Chats><div>{foundUser && <Chats><Avatar src={foundUser.photoURL} /><ChatInfo>{foundUser.displayName}</ChatInfo></Chats>}</div></>
-
+      </Chats>
+      {isOpen && <AddNewChat />}
+      <div>
+        {foundUser && (
+          <Chats>
+            <Avatar src={foundUser.photoURL} />
+            <ChatInfo>{foundUser.displayName}</ChatInfo>
+          </Chats>
+        )}
+      </div>
+    </>
   );
 };

@@ -6,6 +6,7 @@ import { useTheme } from "@mui/material/styles";
 import { SidebarChatElement } from "./SidebarChatElement";
 import db from "../../services/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
+import { AddNewChat } from "../FormElements/AddNewChatForm";
 
 const Wrapper = styled.div`
   // display: flex;

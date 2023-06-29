@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import db from "../../services/firebase";
 import { collection, doc, onSnapshot, getDoc } from "firebase/firestore";
+import { AddNewChat } from "../FormElements/AddNewChatForm";
 
 const Wrapper = styled.div`
   flex: 0.75;
@@ -36,7 +37,6 @@ const Chat = () => {
             <ChatHeader 
               name={contactName}
             />
-
       <ChatBody />
       <MessageForm />
     </Wrapper>
