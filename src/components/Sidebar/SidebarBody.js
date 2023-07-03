@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import styled from "styled-components";
 import { Divider } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { SidebarChatElement } from "./SidebarChatElement";
 import db from "../../services/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { AddNewChat } from "../FormElements/AddNewChatForm";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
+import { useDispatch, useSelector } from "react-redux";
+import { clearMessageInput } from "../../services/redux/modal/modalSlice";
 
 const Wrapper = styled.div`
   // display: flex;
@@ -62,23 +66,36 @@ export const SidebarBody = () => {
 
   // willbedeletedsoon
   const [contacts, setContacts] = useState([]);
+  const { currUser } = useContext(AuthContext);
+  const { dispatch } = useContext(ChatContext);
+
+  const { clearInput } = useSelector((state) => state.modal);
+  const _dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'contacts'), (snapshot) =>
-      setContacts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      )
-    );
+    const getUserContacts = () => {
+      console.log(`getUserContactsDone`);
+      const unsubscribe = onSnapshot(
+        doc(db, "userContacts", currUser.uid),
+        (snapshot) => {
+          setContacts(snapshot.data());
+          console.log(`Check if contacts was added ` + contacts);
+          console.log(snapshot.data());
+        }
+      );
 
-    return () => {
-      unsubscribe();
+      return () => {
+        unsubscribe();
+      };
     };
-  }, []);
+    currUser.uid && getUserContacts();
+  }, [currUser.uid]);
 
-
+  const handleSelect = (userInformation) => {
+    dispatch({ type: "CHANGE_CONTACT", payload: userInformation });
+    _dispatch(clearMessageInput());
+    console.log(`Clicked handle select`);
+  };
   return (
     /*Szukaj divider przypięty all chats */
     <>
@@ -92,14 +109,18 @@ export const SidebarBody = () => {
         <Divider sx={style} variant="middle" />
 
         <ChatWrapper>
-          {/*LOADER WHILE FETCH FROM DB*/}
+          {console.log(`SidebarBodyRender ` + contacts)}
           <SidebarChatElement newChat />
-          {contacts.map((contact) => (
-            <SidebarChatElement
-              key={contact.id}
-              id={contact.id}
-              name={contact.data.name}
-            />
+          {Object.entries(contacts)?.sort((a,b) => b[1].date - a[1].date).map((contact) => (
+            <div onClick={() => handleSelect(contact[1].userInformation)} key={contact[0]}>
+              <SidebarChatElement
+                key={contact[0]}
+                id={contact[1].userInformation.uid}
+                name={contact[1].userInformation.displayName}
+                avatar={contact[1].userInformation.photoURL}
+                lastMessage={contact[1].lastMessage?.messageText}
+              />
+            </div>
           ))}
         </ChatWrapper>
       </Wrapper>

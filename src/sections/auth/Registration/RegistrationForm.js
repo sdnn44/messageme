@@ -13,6 +13,7 @@ import db, { auth, storage } from "../../../services/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import Attach from "../../../img/addAvatar.png"
 
 const Wrapper = styled.div`
   width: 80%;
@@ -120,7 +121,7 @@ export const RegistrationForm = () => {
 
         <input required style={{ display: "none" }} type="file" id="file" />
         <label htmlFor="file">
-          <img src="./addAvatar.png" alt="avatar" />
+          <img src={Attach} alt="avatar" />
           <span>Dodaj avatar</span>
         </label>
 

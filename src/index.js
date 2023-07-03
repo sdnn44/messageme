@@ -8,17 +8,20 @@ import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/AuthContext";
 import { Provider } from "react-redux";
 import { store } from "./services/redux/store";
+import { ChatContextProvider } from "./context/ChatContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <AuthContextProvider>
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
+    <ChatContextProvider>
+      <React.StrictMode>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </React.StrictMode>
+    </ChatContextProvider>
   </AuthContextProvider>
 );
 

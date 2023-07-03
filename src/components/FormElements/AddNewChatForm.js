@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import TextField from '@mui/material/TextField';
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import TextField from "@mui/material/TextField";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
@@ -14,6 +14,10 @@ import { ButtonProvider } from "./CustomButtonProvider";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, openModal } from "../../services/redux/modal/modalSlice";
 import { AutocompleteSearchBar } from "./AutocompleteSearchBar";
+
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Avatar, IconButton } from "@mui/material";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,6 +36,30 @@ const style = {
   p: 4,
   color: "#fff",
 };
+
+const CustomizedIcons = styled.div`
+  .MuiSvgIcon-root {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    margin: 0.3rem;
+    cursor: pointer;
+  }
+  .MuiSvgIcon-root:hover {
+    transition: 0.3s ease;
+    color: #186189;
+  }
+`;
+
+// const CustomizedIcons = styled(IconButton)`
+//   .MuiSvgIcon-root {
+//     position: relative;
+//     top: 0;
+//     right: 0;
+//     color: white;
+//   }
+// `;
 
 export const AddNewChat = () => {
   const [open, setOpen] = React.useState(true);
@@ -58,24 +86,21 @@ export const AddNewChat = () => {
       >
         <Fade in={isOpen}>
           <Box sx={style}>
+            <CustomizedIcons>
+              <CloseOutlinedIcon
+                onClick={() => {
+                  dispatch(closeModal());
+                }}
+              />
+            </CustomizedIcons>
             <Typography id="transition-modal-title" variant="h6" component="h2">
               Dodaj użytkownika do wspólnych rozmów
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
               Wyszukaj nazwę użytkownika, a następnie kliknij Enter.
             </Typography>
-            <AutocompleteSearchBar/>
-            <button
-              type="button"
-              onClick={() => {
-                // handleClose();
-                dispatch(closeModal());
-                // setOpen(false);
-                console.log(`Is open after decline? ` + isOpen);
-              }}
-            >
-              Zamknij
-            </button>
+            <AutocompleteSearchBar />
+           
           </Box>
         </Fade>
       </Modal>

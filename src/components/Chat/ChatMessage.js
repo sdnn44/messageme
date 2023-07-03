@@ -1,17 +1,19 @@
-import React from 'react'
-import styled from "styled-components";
+import React, { useContext, useEffect, useRef } from "react";
+import styled, { css } from "styled-components";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 const ChatMessageElement = styled.div`
+  ${({ isOwner }) => isOwner && ownerStyles}
   color: white;
   font-size: 15px;
   position: relative;
-  padding: .1rem 1rem;
+  padding: 0.1rem 1rem;
   width: fit-content;
   background-color: rgb(26, 26, 33);
   border-radius: 15px;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 
   span {
     // position: absolute;
@@ -27,29 +29,43 @@ const ChatMessageElement = styled.div`
   }
 `;
 
-export const ChatMessage = ({receiver}) => {
+const ownerStyles = css`
+  margin-left: auto !important;
+  background: rgb(1, 86, 189) !important;
 
-  return !receiver ? (
-    <Wrapper>
-        <ChatMessageElement>
-        {/* <ChatMessageUser> */}
-            <span>Tom</span>
-            {/* </ChatMessageUser> */}
-            <p>Hello there!</p>
-            <p>What are you doing?</p>
-            <span>05.06.2023 23:08</span>
-        </ChatMessageElement>
-        <ChatMessageElement>
-            <p>How was your day?</p>
-        </ChatMessageElement>
-    </Wrapper>
-    ) : (
-    <ChatMessageElement style={{"marginLeft": "auto", "backgroundColor": "rgb(1, 86, 189)"}}>
-        <span>Me</span>
-        <p>Fine :-)</p>
-        <span>05.06.2023 23:08</span>
+`;
 
+export const ChatMessage = ({ messages }) => {
+  const { currUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
+
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({behavior:"smooth"})
+  }, [messages]);
+
+  return (
+    <ChatMessageElement ref={ref} isOwner={messages.senderId === currUser.uid}>
+      <span>{messages.senderId === currUser.uid?currUser.displayName:data.user.displayName}</span>
+      <p>{messages.messageText}</p>
+      <p>{messages.img && <img src={messages.img} alt="" />}</p>
+      <span>{messages.id}</span>
     </ChatMessageElement>
-    )
-    
-}
+  );
+  //  !receiver ? (
+  // <Wrapper>
+  //     <ChatMessageElement>
+  //     {/* <ChatMessageUser> */}
+  //         <span>{data.user.displayName}</span>
+  //         {/* </ChatMessageUser> */}
+  //         <p>Hello there!</p>
+  //         <p>What are you doing?</p>
+  //         <span>05.06.2023 23:08</span>
+  //     </ChatMessageElement>
+  //     <ChatMessageElement>
+  //         <p>How was your day?</p>
+  //     </ChatMessageElement>
+  // </Wrapper>
+  // ) :
+};

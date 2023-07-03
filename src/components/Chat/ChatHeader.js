@@ -2,10 +2,11 @@ import { Avatar, IconButton } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import styled from "styled-components";
-import React from "react";
+import React, { useContext } from "react";
+import { ChatContext } from "../../context/ChatContext";
 
 const Wrapper = styled.div`
-  padding: .6rem;
+  padding: 0.6rem;
   display: flex;
   align-items: center;
   // justify-content: center;
@@ -32,12 +33,14 @@ const HeaderInfoRight = styled.div`
   }
 `;
 
-const ChatHeader = ({name}) => {
+const ChatHeader = ({ name }) => {
+  const { data } = useContext(ChatContext);
+
   return (
     <Wrapper>
-      <Avatar />
+      <Avatar src={data.user?.photoURL} />
       <HeaderInfo>
-        <h3>{name}</h3>
+        <h3>{data.user?.displayName}</h3>
         <p>last seen..</p>
       </HeaderInfo>
 

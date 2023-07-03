@@ -11,7 +11,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import db from "../../services/firebase";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AddNewChat } from "../FormElements/AddNewChatForm";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../services/redux/modal/modalSlice";
@@ -24,15 +24,12 @@ const Chats = styled.div`
   cursor: pointer;
   background: rgb(31, 38, 49);
   align-items: center;
+
   :hover {
     background: #454f5f;
     transition: 0.3s ease;
   }
-  // .is-active > div {
 
-  //   background-color: theme.palette.primary.main;
-
-  // }
   h2 {
     font-size: 1rem;
   }
@@ -47,8 +44,11 @@ const ChatInfo = styled.div`
   }
 `;
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // width: 100%;
+  div.is-active {
+    background: rgb(1, 86, 189) !important;
+  }
 `;
 
 const CustomizedIcons = styled(IconButton)`
@@ -74,7 +74,13 @@ const createChat = async () => {
   // dispatch(toggleUpdateUserData());
 };
 
-export const SidebarChatElement = ({ id, name, newChat }) => {
+export const SidebarChatElement = ({
+  id,
+  name,
+  avatar,
+  lastMessage,
+  newChat,
+}) => {
   const { isOpen } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
   const [newContactUsername, setNewContactUsername] = useState("");
@@ -103,15 +109,22 @@ export const SidebarChatElement = ({ id, name, newChat }) => {
   };
 
   return !newChat ? (
-    <Link to={`/contacts/${id}`}>
-      <Chats>
-        <Avatar />
-        <ChatInfo>
-          {name}
-          <p>Last message from other users..</p>
-        </ChatInfo>
-      </Chats>
-    </Link>
+    <Wrapper>
+      <NavLink
+        to={`/contacts/${id}`}
+        style={{ textDecoration: "none", color: "#fff" }}
+      >
+        {({ isActive, isPending  }) => (
+          <Chats className={isActive ? "is-active" : ""}>
+            <Avatar src={avatar} />
+            <ChatInfo>
+              <h2> {name} </h2>
+              <p> {lastMessage} </p>
+            </ChatInfo>
+          </Chats>
+        )}
+      </NavLink>
+    </Wrapper>
   ) : (
     <>
       <Chats
@@ -129,14 +142,14 @@ export const SidebarChatElement = ({ id, name, newChat }) => {
         <h2>Stwórz nowy czat</h2>
       </Chats>
       {isOpen && <AddNewChat />}
-      <div>
+      {/* <div>
         {foundUser && (
           <Chats>
             <Avatar src={foundUser.photoURL} />
             <ChatInfo>{foundUser.displayName}</ChatInfo>
           </Chats>
         )}
-      </div>
+      </div> */}
     </>
   );
 };
