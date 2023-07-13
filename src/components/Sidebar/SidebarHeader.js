@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AddCommentOutlinedIcon from "@mui/icons-material/AddCommentOutlined";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Avatar, IconButton } from "@mui/material";
 import Badge from '@mui/material/Badge';
@@ -56,7 +56,7 @@ export const SidebarHeader = () => {
       <span>{currUser.displayName}</span>
       <RightHeader>
         <CustomizedIcons sx={{ color: "#fff" }}>
-          <AddCommentOutlinedIcon />
+          <ManageAccountsIcon />
         </CustomizedIcons>
         <CustomizedIcons
           sx={{ color: "#fff" }}

@@ -11,8 +11,10 @@ const ChatMessageElement = styled.div`
   position: relative;
   padding: 0.1rem 1rem;
   width: fit-content;
+  min-width: 5rem;
+  max-width: 50%;
   background-color: rgb(26, 26, 33);
-  border-radius: 15px;
+  border-radius: 25px 25px 25px 0;
   margin-bottom: 0.8rem;
 
   span {
@@ -21,18 +23,29 @@ const ChatMessageElement = styled.div`
     font-weight: 800;
     font-size: x-small;
   }
-  span:nth-child(even) {
-    // position: absolute;
-    // top: 170px;
-    right: 20px;
-    font-weight: 600;
+  // span:nth-child(even) {
+  //   // position: absolute;
+  //   // top: 170px;
+  //   right: 20px;
+  //   font-weight: 600;
+  // }
+  p img {
+    display:flex;
+    justify-content: flex-end;
+    max-width: 50%;
   }
 `;
 
+const DateTimestamp = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  font-size: x-small;
+`;
+
 const ownerStyles = css`
+  border-radius: 25px 25px 0 25px !important;
   margin-left: auto !important;
   background: rgb(1, 86, 189) !important;
-
 `;
 
 export const ChatMessage = ({ messages }) => {
@@ -50,7 +63,7 @@ export const ChatMessage = ({ messages }) => {
       <span>{messages.senderId === currUser.uid?currUser.displayName:data.user.displayName}</span>
       <p>{messages.messageText}</p>
       <p>{messages.img && <img src={messages.img} alt="" />}</p>
-      <span>{messages.id}</span>
+      <DateTimestamp>{messages.date.toDate().toLocaleTimeString('pl-PL', {hour: '2-digit', minute: '2-digit'})}</DateTimestamp>
     </ChatMessageElement>
   );
   //  !receiver ? (

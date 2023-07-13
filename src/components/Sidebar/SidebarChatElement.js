@@ -19,7 +19,7 @@ import { openModal } from "../../services/redux/modal/modalSlice";
 const Chats = styled.div`
   display: flex;
   padding: 0.2rem 0.6rem;
-  margin: 0.8rem;
+  margin: 0.6rem;
   border-radius: 15px;
   cursor: pointer;
   background: rgb(31, 38, 49);
@@ -36,11 +36,34 @@ const Chats = styled.div`
 `;
 const ChatInfo = styled.div`
   margin: 0 auto 2px 8px;
-  h2 {
-    font-size: 0.9rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .nameMessage {
+    h2 {
+      font-size: 0.9rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
   }
-  p {
-    font-size: 0.9rem;
+  .unreadTimestamp {
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    span {
+      background: rgb(1, 86, 189);
+      border: 1px solid rgb(31, 38, 49);
+      border-radius: 50px;
+      display: flex;
+      justify-content: center;
+      font-size: 0.8rem;
+      padding: 0.4rem;
+    }
+    p {
+      font-size: 0.8rem;
+    }
   }
 `;
 const Wrapper = styled.div`
@@ -76,9 +99,11 @@ const createChat = async () => {
 
 export const SidebarChatElement = ({
   id,
+  timestamp,
   name,
   avatar,
   lastMessage,
+  unreadCount,
   newChat,
 }) => {
   const { isOpen } = useSelector((state) => state.modal);
@@ -114,12 +139,33 @@ export const SidebarChatElement = ({
         to={`/contacts/${id}`}
         style={{ textDecoration: "none", color: "#fff" }}
       >
-        {({ isActive, isPending  }) => (
+        {({ isActive, isPending }) => (
           <Chats className={isActive ? "is-active" : ""}>
             <Avatar src={avatar} />
             <ChatInfo>
-              <h2> {name} </h2>
-              <p> {lastMessage} </p>
+              <div className="nameMessage">
+                <h2> {name} </h2>
+                <p>
+                  {lastMessage?.length > 25
+                    ? `${lastMessage?.slice(0, 22)}...`
+                    : lastMessage}
+                </p>
+              </div>
+              <div className="unreadTimestamp">
+                <p>
+                  {" "}
+                  {timestamp
+                    ?.toDate()
+                    .toLocaleDateString("pl-PL", { weekday: "short" })}{" "}
+                  {timestamp
+                    ?.toDate()
+                    .toLocaleTimeString("pl-PL", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}{" "}
+                </p>
+                {unreadCount > 0 && <span> {unreadCount} </span>}
+              </div>
             </ChatInfo>
           </Chats>
         )}

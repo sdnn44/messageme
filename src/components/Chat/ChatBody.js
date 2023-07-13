@@ -16,9 +16,12 @@ const ChatBody = () => {
   const [messages, setMessages] = useState([]);
   const { data } = useContext(ChatContext);
 
+  console.log("chatBodySwitch + id = " + data.combineId);
+  console.log("chatBodySwitch + lastMessage = " + data.user.displayName);
+
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      doc(db, "chats", data.chatId),
+      doc(db, "chats", data.combineId),
       (snapshot) => {
         snapshot.exists() && setMessages(snapshot.data().messages);
       }
@@ -27,7 +30,7 @@ const ChatBody = () => {
     return () => {
       unsubscribe();
     };
-  }, [data.chatId]);
+  }, [data.combineId]);
   return (
     <Wrapper>
       {messages.map(message=>(

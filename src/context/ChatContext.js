@@ -15,8 +15,10 @@ export const ChatContextProvider = ({ children }) => {
   const { currUser } = useContext(AuthContext);
 
   const INITIAL_STATE = {
-    chatId: "null",
+    chatData: {},
     user: {},
+    latestMessages: {},
+    combineId: "null",
     handleInput: "",
   };
   const chatReducer = (state, action) => {
@@ -24,11 +26,36 @@ export const ChatContextProvider = ({ children }) => {
       case "CHANGE_CONTACT":
         return {
           user: action.payload,
-          chatId:
+          combineId:
             currUser.uid < action.payload.uid
               ? action.payload.uid + currUser.uid
               : currUser.uid + action.payload.uid,
           handleInput: "",
+        };
+      case "UPDATE_CHAT":
+        const { chatData } = action.payload;
+        console.log(chatData);
+        return {
+          chatData: action.payload,
+          user: chatData.user,
+          latestMessages: chatData.lastMessage,
+          latestTimestamp: chatData.lastTimestamp,
+          combineId:
+            currUser.uid < chatData.user.uid
+              ? chatData.user.uid + currUser.uid
+              : currUser.uid + chatData.user.uid,
+          handleInput: "",
+          // ...state,
+          // // combineId:
+          // //   currUser.uid < action.payload.uid
+          // //     ? action.payload.uid + currUser.uid
+          // //     : currUser.uid + action.payload.uid,
+          // chats: {
+          //   ...state.chats,
+          //   [combineId]: chatData,
+          // },
+          // // user: chatData.userInformation,
+          // handleInput: "",
         };
       default:
         return state;

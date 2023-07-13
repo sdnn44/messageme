@@ -41,7 +41,7 @@ const ChatHeader = ({ name }) => {
       <Avatar src={data.user?.photoURL} />
       <HeaderInfo>
         <h3>{data.user?.displayName}</h3>
-        <p>last seen..</p>
+        <p>Ostatnia aktywność: {data.latestTimestamp?.toDate().toLocaleTimeString('pl-PL', {hour: '2-digit', minute: '2-digit'})}</p>
       </HeaderInfo>
 
       <HeaderInfoRight>

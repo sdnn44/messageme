@@ -149,6 +149,15 @@ export const AutocompleteSearchBar = () => {
               InputProps={{
                 ...params.InputProps,
                 type: "search",
+                sx: {
+                  background: 'rgb(31, 38, 49)',
+                  color: 'white'
+                },
+              }}
+              InputLabelProps={{
+                sx: {
+                  color:'white'
+                },
               }}
             />
           )}
@@ -172,4 +181,3 @@ export const AutocompleteSearchBar = () => {
   );
 };
 
-const top100Films = [{ title: "The Shawshank Redemption", year: 1994 }];
