@@ -48,37 +48,22 @@ const ownerStyles = css`
   background: rgb(1, 86, 189) !important;
 `;
 
-export const ChatMessage = ({ messages }) => {
+export const ChatMessage = ({ messages, jumpToRef }) => {
   const { currUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
   const ref = useRef();
 
   useEffect(() => {
-    ref.current?.scrollIntoView({behavior:"smooth"})
+    ref.current?.scrollIntoView({behavior:"smooth"});
   }, [messages]);
 
   return (
-    <ChatMessageElement ref={ref} isOwner={messages.senderId === currUser.uid}>
+    <ChatMessageElement ref={messages.id === jumpToRef?.current?.id ? jumpToRef : ref} isOwner={messages.senderId === currUser.uid}>
       <span>{messages.senderId === currUser.uid?currUser.displayName:data.user.displayName}</span>
       <p>{messages.messageText}</p>
       <p>{messages.img && <img src={messages.img} alt="" />}</p>
       <DateTimestamp>{messages.date.toDate().toLocaleTimeString('pl-PL', {hour: '2-digit', minute: '2-digit'})}</DateTimestamp>
     </ChatMessageElement>
   );
-  //  !receiver ? (
-  // <Wrapper>
-  //     <ChatMessageElement>
-  //     {/* <ChatMessageUser> */}
-  //         <span>{data.user.displayName}</span>
-  //         {/* </ChatMessageUser> */}
-  //         <p>Hello there!</p>
-  //         <p>What are you doing?</p>
-  //         <span>05.06.2023 23:08</span>
-  //     </ChatMessageElement>
-  //     <ChatMessageElement>
-  //         <p>How was your day?</p>
-  //     </ChatMessageElement>
-  // </Wrapper>
-  // ) :
 };

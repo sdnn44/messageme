@@ -99,6 +99,7 @@ export const AddNewChat = () => {
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
               Wyszukaj nazwę użytkownika, a następnie kliknij Enter.
             </Typography>
+            
             <AutocompleteSearchBar />
            
           </Box>

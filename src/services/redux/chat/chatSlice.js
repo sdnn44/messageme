@@ -1,23 +1,22 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-// const initialState = {
-//     chatId: "null",
-//     user: {}
-// };
+const initialState = {
+    searchQuery: '',
+    openDetails: false,
+};
 
-// const chatSlice = createSlice({
-//   name: 'chat',
-//   initialState,
-//   reducers: {
-//     openModal: (state, action) => {
-//       state.isOpen = true;
-//     },
-//     closeModal: (state, action) => {
-//       state.isOpen = false;
-//     },
-//   },
-// });
+const slice = createSlice({
+    name: 'chat',
+    initialState,
+    reducers: {
+      setSearchQuery: (state, action) => {
+        state.searchQuery = action.payload;
+      },
+      toggleChatDetails: (state, action) => {
+        state.openDetails = !state.openDetails;
+      }
+    },
+  });
 
-// export const { openModal, closeModal } = modalSlice.actions;
-
-// export default modalSlice.reducer;
+  export const { setSearchQuery, toggleChatDetails } = slice.actions;
+  export default slice.reducer;

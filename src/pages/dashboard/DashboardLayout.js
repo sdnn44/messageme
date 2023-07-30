@@ -6,7 +6,7 @@ import SideNav from "../../layouts/dashboard";
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
-const Wrapper = styled.div `
+const Wrapper = styled.div`
   // height: 100vh;
   // width: 100vw;
   display: flex;
@@ -16,8 +16,13 @@ const Wrapper = styled.div `
 `;
 
 const DashboardLayout = () => {
-    console.log("DashboardLayout?");
-    return ( <><SideNav /><Sidebar /></>);
+  console.log("DashboardLayout?");
+  return (
+    <>
+      <SideNav />
+      <Sidebar />
+    </>
+  );
 };
 
 export default DashboardLayout;

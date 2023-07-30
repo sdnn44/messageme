@@ -21,6 +21,7 @@ import { ChatContext } from "../../../context/ChatContext";
 import { AuthContext } from "../../../context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import Picker from "emoji-picker-react";
 
 // const _increment = db.FieldValue.increment(1);
 
@@ -29,7 +30,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 4rem;
-
+  position: relative;
   svg {
     color: #fff;
     padding: 0.2rem;
@@ -55,6 +56,14 @@ const Wrapper = styled.div`
   }
 `;
 
+const EmojiContainer = styled.div`
+  // display: flex;
+  position: absolute;
+  top: -20rem;
+  right: 1.1rem;
+  // left: 0;
+`;
+
 const MessageForm = () => {
   //will be deleted soon
   const sendMessage = (e) => {
@@ -64,6 +73,19 @@ const MessageForm = () => {
 
   const [messageText, setMessageText] = useState("");
   const [messageImg, setMessageImg] = useState("");
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const handleShowEmojiPicker = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
+  const handleEmojiClick = (emojiObject, event) => {
+    let msg = messageText;
+    console.log(emojiObject);
+    msg += emojiObject.emoji;
+    setMessageText(msg);
+  };
 
   const { data } = useContext(ChatContext);
   const { currUser } = useContext(AuthContext);
@@ -142,58 +164,66 @@ const MessageForm = () => {
   };
 
   return (
-    <Wrapper>
-      <Tooltip title="Wyślij nagranie głosowe" placement="top">
-        <IconButton
-        // onClick={() => )}
-        >
-          <MicNoneIcon />
-        </IconButton>
-      </Tooltip>
-      <form>
-        <input
-          type="text"
-          // value={ messageImg? <img src={messageImg} /> : messageText }
-          value={messageText}
-          onChange={(e) => setMessageText(e.target.value)}
-          placeholder="Napisz wiadomość"
-        />
-        <button onClick={sendMessage} type="submit" style={{ display: "none" }}>
-          Wyślij wiadomość
-        </button>
-        <Tooltip title="Wybierz ikonę emoji" placement="top">
-          <IconButton
-          // onClick={() => )}
-          >
-            <AddReactionOutlinedIcon />
+    <>
+      <Wrapper>
+        <Tooltip title="Wyślij nagranie głosowe" placement="top">
+          <IconButton>
+            <MicNoneIcon />
           </IconButton>
         </Tooltip>
+        <form>
+          <input
+            type="text"
+            // value={ messageImg? <img src={messageImg} /> : messageText }
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            placeholder="Napisz wiadomość"
+          />
+          <button
+            onClick={sendMessage}
+            type="submit"
+            style={{ display: "none" }}
+          >
+            Wyślij wiadomość
+          </button>
 
-        <Tooltip title="Załącz plik" placement="top">
-          <label htmlFor="file">
-            <IconButton component="span">
-              <AttachFileIcon />
+          <EmojiContainer>
+            {showEmojiPicker && (
+              <Picker
+                onEmojiClick={handleEmojiClick}
+                searchDisabled="true"
+                theme="dark"
+                height="20rem"
+              />
+            )}
+          </EmojiContainer>
+          <Tooltip title="Wybierz ikonę emoji" placement="top">
+            <IconButton onClick={handleShowEmojiPicker}>
+              <AddReactionOutlinedIcon />
             </IconButton>
-          </label>
+          </Tooltip>
+          <Tooltip title="Załącz plik" placement="top">
+            <label htmlFor="file">
+              <IconButton component="span">
+                <AttachFileIcon />
+              </IconButton>
+            </label>
+          </Tooltip>
+          <input
+            required
+            style={{ display: "none" }}
+            type="file"
+            id="file"
+            onChange={(e) => setMessageImg(e.target.files[0])}
+          />
+        </form>
+        <Tooltip title="Wyślij wiadomość" placement="top">
+          <IconButton type="submit" onClick={handleSend}>
+            <SendRoundedIcon />
+          </IconButton>
         </Tooltip>
-        <input
-          required
-          style={{ display: "none" }}
-          type="file"
-          id="file"
-          onChange={(e) => setMessageImg(e.target.files[0])}
-        />
-      </form>
-      <Tooltip title="Wyślij wiadomość" placement="top">
-        <IconButton
-          type="submit"
-          onClick={handleSend}
-          // onClick={() => )}
-        >
-          <SendRoundedIcon />
-        </IconButton>
-      </Tooltip>
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 };
 export default MessageForm;
