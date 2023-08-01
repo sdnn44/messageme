@@ -1,23 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import TextField from "@mui/material/TextField";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { ButtonProvider } from "./CustomButtonProvider";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, openModal } from "../../services/redux/modal/modalSlice";
-import { AutocompleteSearchBar } from "./AutocompleteSearchBar";
+import { closeModal } from "../../../services/redux/modal/modalSlice";
+import { AutocompleteSearchBar } from "../AutocompleteSearchBar";
 
-import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { Avatar, IconButton } from "@mui/material";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,22 +45,9 @@ const CustomizedIcons = styled.div`
   }
 `;
 
-// const CustomizedIcons = styled(IconButton)`
-//   .MuiSvgIcon-root {
-//     position: relative;
-//     top: 0;
-//     right: 0;
-//     color: white;
-//   }
-// `;
-
 export const AddNewChat = () => {
-  const [open, setOpen] = React.useState(true);
   const { isOpen } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
-  const handleOpen = () => dispatch(openModal());
-  const handleClose = () => dispatch(closeModal());
-  console.log("is open in new component? " + isOpen);
   return (
     <div>
       {/* <Button onClick={handleOpen}>Stwórz nowy czat</Button> */}
@@ -106,18 +86,5 @@ export const AddNewChat = () => {
         </Fade>
       </Modal>
     </div>
-    // <Dialog>
-    //   <h2>Dodaj znajomych do wspólnego czatowania</h2>
-    //   <p>Wyszukaj nazwę użytkownika poprzez podanie jego nazwy.</p>
-    //   <button
-    //     onClick={() => {
-    //       dispatch(closeModal());
-    //     }}
-    //     aria-label="close"
-    //     className="x"
-    //   >
-    //     ❌
-    //   </button>
-    // </Dialog>
   );
 };

@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import EditIcon from "@mui/icons-material/Edit";
 import PaletteIcon from "@mui/icons-material/Palette";
@@ -16,7 +15,18 @@ import PhotoLibraryOutlinedIcon from "@mui/icons-material/PhotoLibraryOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import BlockOutlinedIcon from "@mui/icons-material/BlockOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import {
+  openModalForBlockingChat,
+  openModalForArchiveChat,
+  openModalForDeletingChat,
+  openModalForChangeUsername,
+} from "../../../services/redux/modal/modalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { DeleteCurrentChat } from "../../ChatElements/DeleteChat/DeleteCurrentChat";
+import { BlockUser } from "../../ChatElements/BlockChat/BlockUser";
+import { ArchiveChat } from "../../ChatElements/ArchiveChat/ArchiveChat";
+import { ChangeUsername } from "../../ChatElements/ChangeUsername/ChangeUsername";
 
 const Wrapper = styled.div`
   display: flex;
@@ -91,6 +101,11 @@ const SpecificOption = styled.div`
 
 export const DetailsBody = () => {
   const label = { inputProps: { "aria-label": "Color switch demo" } };
+  const dispatch = useDispatch();
+  const { isOpenForChangeUsername } = useSelector((state) => state.modal);
+  const { isOpenForBlockingChat } = useSelector((state) => state.modal);
+  const { isOpenForArchiveChat } = useSelector((state) => state.modal);
+  const { isOpenForDeletingChat } = useSelector((state) => state.modal);
 
   return (
     <Wrapper>
@@ -110,7 +125,11 @@ export const DetailsBody = () => {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              <AccordionOption>
+              <AccordionOption
+                onClick={() => {
+                  dispatch(openModalForChangeUsername());
+                }}
+              >
                 <EditIcon />
                 <p>Zmień nazwę użytkownika</p>
               </AccordionOption>
@@ -139,21 +158,37 @@ export const DetailsBody = () => {
           </AccordionDetails>
         </Accordion>
       </AccordionWrapper>
+      {isOpenForChangeUsername && <ChangeUsername />}
       <OptionWrapper>
-        <SpecificOption>
+        <SpecificOption
+          onClick={() => {
+            dispatch(openModalForBlockingChat());
+          }}
+        >
           <BlockOutlinedIcon />
           Zablokuj
         </SpecificOption>
+        {isOpenForBlockingChat && <BlockUser />}
 
-        <SpecificOption>
+        <SpecificOption
+          onClick={() => {
+            dispatch(openModalForArchiveChat());
+          }}
+        >
           <ArchiveOutlinedIcon />
           Archiwizuj czat
         </SpecificOption>
+        {isOpenForArchiveChat && <ArchiveChat />}
 
-        <SpecificOption>
+        <SpecificOption
+          onClick={() => {
+            dispatch(openModalForDeletingChat());
+          }}
+        >
           <DeleteOutlineOutlinedIcon />
           Usuń czat
         </SpecificOption>
+        {isOpenForDeletingChat && <DeleteCurrentChat />}
       </OptionWrapper>
     </Wrapper>
   );

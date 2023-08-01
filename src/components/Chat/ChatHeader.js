@@ -1,7 +1,7 @@
 import { Avatar, IconButton } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import styled from "styled-components";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { ChatContext } from "../../context/ChatContext";
 import SearchMessage from "../Chat/SearchMessage/SearchMessage";
 import { useDispatch } from "react-redux";
@@ -37,9 +37,7 @@ const HeaderInfoRight = styled.div`
 
 const ChatHeader = ({ name }) => {
   const { data } = useContext(ChatContext);
-
   const dispatch = useDispatch();
-
   return (
     <Wrapper>
       <Avatar src={data.user?.photoURL} />
@@ -56,12 +54,12 @@ const ChatHeader = ({ name }) => {
 
       <HeaderInfoRight>
         <SearchMessage />
-        <IconButton>
-          <SettingsIcon
-            onClick={() => {
-              dispatch(toggleChatDetails());
-            }}
-          />
+        <IconButton
+          onClick={() => {
+            dispatch(toggleChatDetails());
+          }}
+        >
+          <SettingsIcon />
         </IconButton>
       </HeaderInfoRight>
     </Wrapper>

@@ -11,8 +11,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import db from "../../services/firebase";
-import { Link, NavLink } from "react-router-dom";
-import { AddNewChat } from "../FormElements/AddNewChatForm";
+import { NavLink } from "react-router-dom";
+import { AddNewChat } from "../ChatElements/NewChat/AddNewChatForm";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../services/redux/modal/modalSlice";
 
@@ -175,9 +175,7 @@ export const SidebarChatElement = ({
     <>
       <Chats
         onClick={() => {
-          console.log(isOpen);
           dispatch(openModal());
-          console.log(isOpen);
         }}
       >
         <div className="addButton">
@@ -188,14 +186,6 @@ export const SidebarChatElement = ({
         <h2>Stwórz nowy czat</h2>
       </Chats>
       {isOpen && <AddNewChat />}
-      {/* <div>
-        {foundUser && (
-          <Chats>
-            <Avatar src={foundUser.photoURL} />
-            <ChatInfo>{foundUser.displayName}</ChatInfo>
-          </Chats>
-        )}
-      </div> */}
     </>
   );
 };

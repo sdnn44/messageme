@@ -27,15 +27,11 @@ const ChatBody = () => {
         snapshot.exists() && setMessages(snapshot.data().messages);
       }
     );
-
+      console.log(messages);
     return () => {
       unsubscribe();
     };
   }, [data.combineId]);
-
-  // const filteredMessages = messages.filter((message) =>
-  //   message.messageText.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
 
   const indexOfFirstMatch = messages.findIndex((message) =>
     message.messageText.toLowerCase().includes(searchQuery.toLowerCase())
@@ -58,12 +54,8 @@ const ChatBody = () => {
 
   const scrollToMessage = (messageId) => {
     const messageNode = document.getElementById(messageId);
-    console.log(messageId);
-    console.log(messageNode);
     if (messageNode) {
       messageNode.scrollIntoView({ behavior: "smooth", block: "center" });
-      console.log(jumpToRef);
-      console.log(messageNode);
     }
   };
 

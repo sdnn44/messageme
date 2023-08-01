@@ -4,7 +4,7 @@ import { InputProvider } from "../InputProvider";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-import { ButtonProvider } from "../../../components/FormElements/CustomButtonProvider";
+import { ButtonProvider } from "../../../components/ChatElements/CustomButtonProvider";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../services/firebase";

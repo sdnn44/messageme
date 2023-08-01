@@ -34,7 +34,6 @@ export const ChatContextProvider = ({ children }) => {
         };
       case "UPDATE_CHAT":
         const { chatData } = action.payload;
-        console.log(chatData);
         return {
           chatData: action.payload,
           user: chatData.user,
@@ -45,17 +44,6 @@ export const ChatContextProvider = ({ children }) => {
               ? chatData.user.uid + currUser.uid
               : currUser.uid + chatData.user.uid,
           handleInput: "",
-          // ...state,
-          // // combineId:
-          // //   currUser.uid < action.payload.uid
-          // //     ? action.payload.uid + currUser.uid
-          // //     : currUser.uid + action.payload.uid,
-          // chats: {
-          //   ...state.chats,
-          //   [combineId]: chatData,
-          // },
-          // // user: chatData.userInformation,
-          // handleInput: "",
         };
       default:
         return state;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { InputProvider } from "../InputProvider";
-import { ButtonProvider } from "../../../components/FormElements/CustomButtonProvider";
+import { ButtonProvider } from "../../../components/ChatElements/CustomButtonProvider";
 import PersonIcon from "@mui/icons-material/Person";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
@@ -69,11 +69,6 @@ export const RegistrationForm = () => {
 
       const uploadTask = uploadBytesResumable(storageRef, avatar);
 
-      // uploadTask.on(
-      //   (error) => {
-      //     console.log(error);
-      //   },
-      //   ()
       await uploadBytesResumable(storageRef, avatar).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           try {

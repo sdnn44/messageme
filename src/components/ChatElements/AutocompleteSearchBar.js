@@ -17,7 +17,6 @@ import {
 import db from "../../services/firebase";
 import styled from "styled-components";
 import { Avatar } from "@mui/material";
-import { ButtonProvider } from "./CustomButtonProvider";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { AuthContext } from "../../context/AuthContext";
 import { closeModal } from "../../services/redux/modal/modalSlice";
@@ -124,6 +123,8 @@ export const AutocompleteSearchBar = () => {
         });
       }
       dispatch(closeModal());
+      console.log("Pomyślnie dodano do bazy!");
+
     } catch (err) {
       console.log(err);
     }

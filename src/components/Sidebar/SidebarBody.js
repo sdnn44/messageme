@@ -6,16 +6,10 @@ import { useTheme } from "@mui/material/styles";
 import { SidebarChatElement } from "./SidebarChatElement";
 import db from "../../services/firebase";
 import {
-  collection,
   doc,
-  getDoc,
   onSnapshot,
-  orderBy,
-  query,
   updateDoc,
-  where,
 } from "firebase/firestore";
-import { AddNewChat } from "../FormElements/AddNewChatForm";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { useDispatch, useSelector } from "react-redux";

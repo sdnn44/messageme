@@ -22,10 +22,13 @@ const UserInformation = styled.div`
   margin-bottom: 1rem;
   h3 {
     margin: 0 auto;
+    font-size: 15px;
   }
   p {
     margin: 0 auto;
     margin-bottom: 1rem;
+    font-size: 13px;
+
   }
 `;
 

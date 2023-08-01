@@ -127,6 +127,7 @@ const MessageForm = () => {
           id: uuidv4(),
           messageText,
           senderId: currUser.uid,
+          senderName: currUser.displayName,
           date: Timestamp.now(),
         }),
       });
@@ -140,14 +141,14 @@ const MessageForm = () => {
       currentValue = 0;
     }
 
-    await updateDoc(doc(db, "userContacts", currUser.uid), {
-      [data.combineId + ".lastMessage"]: {
-        messageText,
-        // unread: currentValue,
-      },
-      [data.combineId + ".date"]: serverTimestamp(),
-    });
     try {
+      await updateDoc(doc(db, "userContacts", currUser.uid), {
+        [data.combineId + ".lastMessage"]: {
+          messageText,
+          // unread: currentValue,
+        },
+        [data.combineId + ".date"]: serverTimestamp(),
+      });
       await updateDoc(docRef, {
         [data.combineId + ".lastMessage"]: {
           messageText,

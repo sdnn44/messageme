@@ -7,6 +7,9 @@ import styled from "styled-components";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import { AuthContext } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { ChangeUserDetails } from "../ChatElements/UserDetails/ChangeUserDetails";
+import { openModalForChangeUserDetails } from "../../services/redux/modal/modalSlice";
 
 const Wrapper = styled.div`
   display: flex;
@@ -43,6 +46,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 // czat&imie&avatar&wyloguj
 export const SidebarHeader = () => {
   const { currUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const { isOpenForChangeUserDetails } = useSelector((state) => state.modal);
 
   return (
     <Wrapper>
@@ -55,7 +60,11 @@ export const SidebarHeader = () => {
       </StyledBadge>
       <span>{currUser.displayName}</span>
       <RightHeader>
-        <CustomizedIcons sx={{ color: "#fff" }}>
+        <CustomizedIcons sx={{ color: "#fff" }}
+          onClick={() => {
+            dispatch(openModalForChangeUserDetails());
+          }}
+        >
           <ManageAccountsIcon />
         </CustomizedIcons>
         <CustomizedIcons
@@ -67,6 +76,7 @@ export const SidebarHeader = () => {
           <LogoutIcon />
         </CustomizedIcons>
       </RightHeader>
+      {isOpenForChangeUserDetails && <ChangeUserDetails />}
     </Wrapper>
   );
 };
