@@ -6,8 +6,9 @@ import { SidebarHeader } from "./SidebarHeader";
 const Wrapper = styled.div`
 display: flex;
 flex-direction: column;
-flex: 0.25; 
+flex: 0.30; 
 max-height: 100vh;
+
 
   background-color: rgb(26, 26, 33);
   // width: 30vh;
@@ -18,7 +19,6 @@ max-height: 100vh;
 const Sidebar = () => {
   return (
     <>
-
       <Wrapper>
         <SidebarHeader />
         <SidebarBody />

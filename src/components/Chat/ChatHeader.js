@@ -1,11 +1,14 @@
 import { Avatar, IconButton } from "@mui/material";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import styled from "styled-components";
-import React from "react";
+import React, { useContext, useEffect, useMemo } from "react";
+import { ChatContext } from "../../context/ChatContext";
+import SearchMessage from "../Chat/SearchMessage/SearchMessage";
+import { useDispatch } from "react-redux";
+import { toggleChatDetails } from "../../services/redux/chat/chatSlice";
 
 const Wrapper = styled.div`
-  padding: .6rem;
+  padding: 0.6rem;
   display: flex;
   align-items: center;
   // justify-content: center;
@@ -32,20 +35,30 @@ const HeaderInfoRight = styled.div`
   }
 `;
 
-const ChatHeader = () => {
+const ChatHeader = ({ name }) => {
+  const { data } = useContext(ChatContext);
+  const dispatch = useDispatch();
   return (
     <Wrapper>
-      <Avatar />
+      <Avatar src={data.user?.photoURL} />
       <HeaderInfo>
-        <h3>Room Name</h3>
-        <p>last seen..</p>
+        <h3>{data.user?.displayName}</h3>
+        <p>
+          Ostatnia aktywność:{" "}
+          {data.latestTimestamp?.toDate().toLocaleTimeString("pl-PL", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </p>
       </HeaderInfo>
 
       <HeaderInfoRight>
-        <IconButton>
-          <SearchOutlinedIcon />
-        </IconButton>
-        <IconButton>
+        <SearchMessage />
+        <IconButton
+          onClick={() => {
+            dispatch(toggleChatDetails());
+          }}
+        >
           <SettingsIcon />
         </IconButton>
       </HeaderInfoRight>

@@ -5,13 +5,14 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const CustomButton = styled.div`
+const CustomButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 30px;
   padding: 0.8rem;
-  margin: 1rem;
+  margin: 2rem auto;
+  width: 70%;
   cursor: pointer;
   border: 0.1px solid lightgray;
   background: #00aec9;

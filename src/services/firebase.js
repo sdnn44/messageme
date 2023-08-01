@@ -7,6 +7,7 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { FacebookAuthProvider } from "firebase/auth";
+import { getStorage, ref } from "firebase/storage";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -25,6 +26,6 @@ const firebaseConfig = {
   const auth = getAuth(firebaseApp);
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider = new FacebookAuthProvider();
-
-export { auth, googleProvider, facebookProvider };
+  const storage = getStorage();
+export { auth, googleProvider, facebookProvider, storage };
 export default db;
