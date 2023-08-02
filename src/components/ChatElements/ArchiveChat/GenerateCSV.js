@@ -55,7 +55,6 @@ export const GenerateCSV = () => {
         }),
       }));
       setDataCSV(tabMessages);
-      alertify.success("Sukces!");
       dispatch(closeModal);
     }
   };
@@ -70,18 +69,12 @@ export const GenerateCSV = () => {
           filename={`${data.combineId}_archive_${new Date().toISOString()}.csv`}
           target="_blank"
           onClick={() => {
-            dispatch(closeModal);
+            dispatch(closeModal());
+            alertify.success("Wiadomości zarchiwizowane!");
           }}
         >
           <ButtonGroup>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                dispatch(closeModal);
-              }}
-            >
-              Pobierz CSV
-            </Button>
+            <Button variant="outlined">Pobierz CSV</Button>
           </ButtonGroup>
         </CSVLink>
       )}

@@ -8,6 +8,7 @@ import db from "../../services/firebase";
 import { collection, doc, onSnapshot, getDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { ChatDetails } from "./ChatDetails/ChatDetails";
+import { Welcome } from "../../pages/dashboard/Welcome";
 
 const Wrapper = styled.div`
   flex: 0.75;
@@ -39,9 +40,15 @@ const Chat = () => {
   return (
     <>
       <Wrapper>
-        <ChatHeader name={contactName} />
-        <ChatBody />
-        <MessageForm />
+        {contactId ? (
+          <>
+            <ChatHeader name={contactName} />
+            <ChatBody />
+            <MessageForm />
+          </>
+        ) : (
+          <Welcome />
+        )}
       </Wrapper>
       {chatDetails.openDetails && (
         <DetailsWrapper>

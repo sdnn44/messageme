@@ -11,31 +11,5 @@ const ProtectedRouter = ({ children }) => {
   } else {
     return <Navigate to="/login" />;
   }
-  // <Routes>
-  //   <Route
-  //     {...rest}
-  //     element={
-  //       isAuthenticated ? (
-  //         <DashboardLayout>
-  //           {children}
-  //         </DashboardLayout>
-  //       ) : (
-  //         <Navigate to="/login" replace />
-  //       )
-  //     }
-  //   />
-  // </Routes>
-  //   );
 };
-//       render={(props) => {
-//         return(
-//         <DashboardLayout>
-//           <Component {...props} />
-//         </DashboardLayout>
-//         );
-//       }}
-//     />
-//   );
-// };
-
 export default ProtectedRouter;

@@ -30,6 +30,7 @@ const UserDetails = styled.div`
   align-items: center;
   flex-direction: row;
   padding: 1rem;
+  justify-content: center;
 `;
 
 const UserDetailsInfo = styled.div`

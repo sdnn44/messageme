@@ -1,16 +1,34 @@
-import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import { doc, onSnapshot } from "firebase/firestore";
 import Scrollbars from "react-custom-scrollbars";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
 import { ChatContext } from "../../context/ChatContext";
 import db from "../../services/firebase";
 import { ChatMessage } from "./ChatMessage";
+import { Avatar } from "@mui/material";
 
 const Wrapper = styled.div`
   flex: 1;
   padding: 1rem;
 `;
+
+const Introduction = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  font-weight: 400;
+  h3 {
+    font-weight: 300;
+     margin: 1.2rem;
+  }
+  span {
+    color: #1976d2;
+  }
+`;
+
 
 const ChatBody = () => {
   const [messages, setMessages] = useState([]);
@@ -27,7 +45,7 @@ const ChatBody = () => {
         snapshot.exists() && setMessages(snapshot.data().messages);
       }
     );
-      console.log(messages);
+    console.log(messages);
     return () => {
       unsubscribe();
     };
@@ -67,6 +85,14 @@ const ChatBody = () => {
       )}
     >
       <Wrapper>
+        <Introduction>
+          <Avatar src={data.user.photoURL}></Avatar>
+          {data.user.displayName}
+          <h3>
+            To jest początek Twojej prywatnej historii wiadomości z
+            uzytkownikiem <span> {data.user.displayName}</span>.
+          </h3>
+        </Introduction>
         {filteredMessages.map((message) => (
           <ChatMessage messages={message} key={message.id} />
         ))}
